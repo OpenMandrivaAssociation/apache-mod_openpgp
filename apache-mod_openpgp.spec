@@ -1,15 +1,15 @@
 #Module-Specific definitions
-%define mod_name mod_auth_openpgp
+%define mod_name mod_openpgp
 %define mod_conf A97_%{mod_name}.conf
 %define mod_so %{mod_name}.so
 
 Summary:	A Apache module that implements PGP access authorization
 Name:		apache-%{mod_name}
-Version:	0.2.1
-Release:	%mkrel 5
+Version:	0.5.0
+Release:	%mkrel 1
 Group:		System/Servers
 License:	Apache License
-URL:		http://linux-consulting.buanzo.com.ar/2007/04/modauthopenpgp-020-released.html
+URL:		http://wiki.buanzo.org/
 Source0:	http://www.buanzo.com.ar/files/%{mod_name}-%{version}.tgz
 Source1:	%{mod_conf}
 Requires(pre): rpm-helper
@@ -21,26 +21,28 @@ Requires:	apache >= 2.2.0
 BuildRequires:	apache-devel >= 2.2.0
 BuildRequires:	libgpgme-devel
 BuildRequires:	libgpg-error-devel
+Obsoletes:	apache-mod_auth_openpgp
+Provides:	apache-mod_auth_openpgp = %{version}
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 %description
-Mod_Auth_OpenPGP is an Apache module that implements access authorization to
+Mod_OpenPGP is an Apache module that implements access authorization to
 servers, vhosts, or directories when incoming requests' HTTP OpenPGP signatures
 are valid and known by the local keyring. It's the Apache companion for
 Firefox's extension "Enigform".
 
 %prep
 
-%setup -q -n auth_openpgp
+%setup -q -n %{mod_name}-%{version}
 
 cp %{SOURCE1} %{mod_conf}
 
 %build
 
-%{_sbindir}/apxs -c -lgpgme -lgpg-error -I%{_includedir}/gpgme mod_auth_openpgp.c
+%{_sbindir}/apxs -c -lgpgme -lgpg-error -I%{_includedir}/gpgme mod_openpgp.c
 
 %install
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 install -d %{buildroot}%{_libdir}/apache-extramodules
 install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
@@ -61,7 +63,7 @@ if [ "$1" = "0" ]; then
 fi
 
 %clean
-[ "%{buildroot}" != "/" ] && rm -rf %{buildroot}
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
