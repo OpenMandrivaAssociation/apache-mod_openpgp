@@ -39,7 +39,7 @@ cp %{SOURCE1} %{mod_conf}
 
 %build
 
-%{_sbindir}/apxs -c -lgpgme -lgpg-error -I%{_includedir}/gpgme mod_openpgp.c
+%{_sbindir}/apxs -c `apr-1-config --cppflags` -lgpgme -lgpg-error -I%{_includedir}/gpgme mod_openpgp.c
 
 %install
 rm -rf %{buildroot}
