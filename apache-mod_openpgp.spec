@@ -6,7 +6,7 @@
 Summary:	A Apache module that implements PGP access authorization
 Name:		apache-%{mod_name}
 Version:	0.5.0
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		System/Servers
 License:	Apache License
 URL:		http://wiki.buanzo.org/
