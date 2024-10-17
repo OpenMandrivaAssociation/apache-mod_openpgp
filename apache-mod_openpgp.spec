@@ -9,7 +9,7 @@ Version:	0.5.0
 Release:	%mkrel 6
 Group:		System/Servers
 License:	Apache License
-URL:		http://wiki.buanzo.org/
+URL:		https://wiki.buanzo.org/
 Source0:	http://www.buanzo.com.ar/files/%{mod_name}-%{version}.tgz
 Source1:	%{mod_conf}
 Requires(pre): rpm-helper
